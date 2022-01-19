@@ -1,3 +1,5 @@
+@inject SignInManager<User> signInManager
+
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
         <div class="container-fluid col-lg-8 col-md-6">
@@ -23,32 +25,49 @@
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
-            <div class="modal-header">
 
-                <button type="button" class="btn btn-primary" style="float: right;" data-bs-toggle="modal"
+            @if (signInManager.IsSignedIn(User))
+            {
+                <div class="modal-header">
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                     data-bs-target="#exampleModal">
-                    Launch demo modal
-                </button>
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        Logout
+                    </button>
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Log Out</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                ...
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to log out?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">No</button>
+                                    <form method="post" asp-action="Logout" asp-controller="Account">
+                                        <button type="submit" class="btn btn-outline-warning" style="width: auto;">Logout
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="modal-header">
+                    <a class="border border-light btn btn-outline-warning" href="~/account/register">Register</a>
+
+                    <a class="border border-light btn btn-outline-danger" href="~/account/login">Login</a>
+                </div>
+
+
+            }
         </div>
     </nav>
 </header>

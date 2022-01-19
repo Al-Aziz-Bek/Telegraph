@@ -27,7 +27,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 //     });
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddHostedService<SeedDatabase>();
+// builder.Services.AddHostedService<SeedDatabase>();
 
 var app = builder.Build();
 

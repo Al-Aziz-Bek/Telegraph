@@ -2,5 +2,5 @@ namespace blog2.ViewModels;
 
 public class BlogsViewModel
 {
-    public List<BlogViewModel> Blogs { get; set; }
+    public List<PostViewModel> Blogs { get; set; }
 }

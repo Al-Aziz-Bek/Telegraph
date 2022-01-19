@@ -6,9 +6,15 @@
     <div class="container my-5">
 
         <div class="d-inline mx-2">
-            <input asp-for="Content" id="content" hidden="true">
             <input asp-for="Title" id="post-title" class="bg-light border-0 w-75" placeholder="Title ...">
+            <div class="editor d-inline mx-2">
+                <input asp-for="@Model.Tags" id="tags" class="bg-light border-0 w-75" placeholder="#tags...">
+            </div>
             <button type="submit" class="btn btn-outline-secondary mr-auto">Publish</button>
+            <div class="text-muted">
+                <input asp-for="@Model.Author" id="author" class="bg-light border-0 m-1" placeholder="Author...">
+            </div>
+            <input asp-for="Content" id="content" hidden="true">
         </div>
         <div id="editor">
 

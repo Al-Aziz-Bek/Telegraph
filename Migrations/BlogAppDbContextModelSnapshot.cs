@@ -28,6 +28,12 @@ namespace blog2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Author")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("BannerImageUrl")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<decimal>("Claps")
                         .HasColumnType("decimal(20,0)");
 
@@ -42,6 +48,9 @@ namespace blog2.Migrations
 
                     b.Property<DateTimeOffset>("ModifiedAt")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Tags")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");

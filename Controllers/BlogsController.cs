@@ -30,11 +30,13 @@ public class BlogsController : Controller
     {
         return View(new BlogsViewModel()
         {
-            Blogs = await _context.Posts.Select(p => new BlogViewModel()
+            Blogs = await _context.Posts.Select(p => new PostViewModel()
             {
                 Id = p.Id,
                 Title = p.Title,
-                Description = p.Content
+                Content = p.Content,
+                Author = p.Author,
+                Tags = p.Tags
             }).ToListAsync()
         });
     }
@@ -57,11 +59,13 @@ public class BlogsController : Controller
         if (model.Edited)
         {
             var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == model.Id);
-            if (post.Title == model.Title && post.Content == model.Content)
+            if (post.Title == model.Title && post.Tags == model.Tags && post.Author == model.Author && post.Content == model.Content)
             {
                 return LocalRedirect($"~/post/{post.Id}");
             }
             post.Title = model.Title;
+            post.Tags = model.Tags;
+            post.Author = model.Author;
             post.Content = model.Content;
             post.ModifiedAt = DateTimeOffset.UtcNow;
             _context.Posts.Update(post);
@@ -70,7 +74,7 @@ public class BlogsController : Controller
             return LocalRedirect($"~/post/{post.Id}");
         }
         var userId = _userManager.GetUserId(User);
-        var newPost = new Post(model.Title, model.Content, Guid.Parse(userId));
+        var newPost = new Post(model.Title, model.Content, model.Author, string.Join(',', model.Tags), Guid.Parse(userId));
 
         await _context.Posts.AddAsync(newPost);
         await _context.SaveChangesAsync();
@@ -87,6 +91,8 @@ public class BlogsController : Controller
             Id = post.Id,
             Title = post.Title,
             Content = post.Content,
+            Author = post.Author,
+            Tags = post.Tags,
             Edited = post.Edited,
             Claps = post.Claps,
             CreatedAt = post.CreatedAt
@@ -104,6 +110,8 @@ public class BlogsController : Controller
             Id = post.Id,
             Title = post.Title,
             Content = post.Content,
+            Author = post.Author,
+            Tags = post.Tags,
             Edited = true,
             Claps = post.Claps,
             CreatedAt = post.CreatedAt

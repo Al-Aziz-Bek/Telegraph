@@ -15,28 +15,25 @@ else
     @foreach (var blog in Model.Blogs)
         {
             <div class="col-md-6">
-                <div class="row g-0 card rounded shadow overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div
+            class="row g-0 card rounded shadow overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative my-card">
                     <div class="col p-4 d-flex flex-column position-static">
                         <div class="d-flex">
                             @if (blog.Tags?.Count() > 0)
                             {
-                                foreach (var tag in blog.Tags)
-                                {
-                                    <span class="badge bg-info text-light mx-1">Info</span>
-
-                                }
+                                <span>@blog.Tags</span>
                             }
                         </div>
                         <h3 class="mb-0">@blog.Title</h3>
+                        <p class="text-muted">@blog.Author</p>
                         <div class="d-flex">
-                            <div class="mb-1 text-muted">@DateTime.Now.ToString("MMM dd, yyyy")</div>
-                            <i class="far fa-thumbs-up ms-auto"> 1432</i>
+                            <div class="mb-1 text-muted">@blog.CreatedAt.ToString("MMM dd, yyyy")</div>
                         </div>
-                        <p class="card-text">@Html.Raw(blog.Description)</p>
+                        <p class="card-text">@Html.Raw(blog.Content)</p>
                         <a href="/post/@blog.Id" class="stretched-link">Continue reading</a>
                     </div>
                     <div class="col-auto d-none d-lg-block">
-                        <img src="@blog.BannerImageUrl" width="200" height="250">
+                        <img src="https://source.unsplash.com/random/200x200?sig=3" width="200" height="250">
                     </div>
                 </div>
             </div>
